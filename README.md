@@ -2,7 +2,7 @@
 
 Use docker to run the website
 
-- docker-composer up
+- docker-compose up
 - [Here you can access the website after](http://localhost:8000/).
 
 ## License
