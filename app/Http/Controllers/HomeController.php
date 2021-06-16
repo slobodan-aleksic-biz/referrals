@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Enums\PageName;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +37,7 @@ class HomeController extends Controller
             'numOfMyReferrals' => $numOfMyReferrals,
             'allUsers' => $allUsers,
             'user' => $user,
+            'page' => PageName::HOME,
         ]);
     }
 
@@ -58,6 +60,7 @@ class HomeController extends Controller
             'numOfMyReferrals' => $numOfMyReferrals,
             'allUsers' => $allUsers,
             'user' => $user,
+            'page' => PageName::SHOW,
         ]);
     }
 
@@ -80,7 +83,7 @@ class HomeController extends Controller
 
         return [
             $numOfMyReferrals,
-            $allUsers
+            $allUsers,
         ];
     }
 }

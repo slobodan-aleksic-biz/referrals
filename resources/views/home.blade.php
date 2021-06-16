@@ -8,7 +8,11 @@
                 <div class="col-3">
                     <div class="alert alert-info" role="alert" style="height:150px">
                         <h5>
+                            @if($page == App\Http\Enums\PageName::HOME)
                             {{ __('Number of my Referral(s):') }}
+                            @else
+                            {{ __('Number of :userName Referral(s):', ['userName' => $user->name]) }}
+                            @endif
                             <hr>
                             <div class="text-center">
                                 <a href="{{ route('show', $user->id) }}">
