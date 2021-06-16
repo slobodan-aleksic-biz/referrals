@@ -4,31 +4,61 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Referral link') }}</div>
-                <div class="card-body">
-                    {{ route('register', [
-                        'ref' => auth()->user()->id
-                    ]) }}
+            <div class="row">
+                <div class="col-3">
+                    <div class="alert alert-info" role="alert" style="height:150px">
+                        <h5>
+                            {{ __('Number of my Referral(s):') }}
+                            <hr>
+                            <div class="text-center">
+                                <a href="{{ route('show', $user->id) }}">
+                                    {{ $numOfMyReferrals }}
+                                </a>
+                            </div>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="card" style="height:150px">
+                        <div class="card-header">{{ __('Referral link') }}</div>
+                        <div class="card-body font-sm" >
+                            <h6>
+                                {{ 
+                                    route('register', [
+                                        'ref' => $user->id
+                                    ]) 
+                                }}
+                            </h6>
+                        </div>
+                    </div>
                 </div>
             </div>
+   
             <br>
             <div class="card">
                 <div class="card-header">{{ __('Number of referrals per user sorted by top referrals') }}</div>
 
                 <div class="card-body">
-                    @foreach ($allUsers as $user)
+                    @if($allUsers->count() == 0) 
+                        <h4 class="text-center">
+                            {{  __('No referrals') }}
+                        </h4>
+                    @endif
+
+                    @foreach ($allUsers as $userItem)
                         <div class="row">
                             <div class="col-7">
                                 <div class="alert alert-info" role="alert">
-                                    {{ $user->name }}
+                                    <a href="{{ route('show', $userItem->id) }}">
+                                    {{ $userItem->name }}
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-5">
                                 <div class="alert alert-info" role="alert">
                                     {{ 
                                         __(':num referral(s)', [
-                                            'num' => $user->cnt
+                                            'num' => $userItem->cnt
                                         ]) 
                                     }}
                                 </div>
