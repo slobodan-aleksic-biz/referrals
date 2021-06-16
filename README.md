@@ -2,8 +2,13 @@
 
 Use docker to run the website
 
-- docker-compose up
-- [Here you can access the website after](http://localhost:8000/login).
+Run the commands:
+- # docker-compose up
+- # docker-compose exec app bash
+- # php artisan migrate
+
+Visit the website
+- [Here you can access the website](http://localhost:8000/login).
 
 ## License
 
