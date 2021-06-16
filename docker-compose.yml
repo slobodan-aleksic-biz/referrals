@@ -1,0 +1,62 @@
+version: '3'
+
+
+services:
+  app:
+    container_name: app
+    build: .
+    volumes:
+      - ./:/var/www
+
+    networks:
+      - app-network
+
+    depends_on:
+      - db
+      - redis
+
+
+  # The Database
+  db:
+    container_name: db
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306
+    volumes:
+      - ./.docker/db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: referral
+      MYSQL_USER: referral_usr
+      MYSQL_PASSWORD: QrYEsFXBudQ4vu82
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    networks:
+      - app-network
+
+
+  nginx:
+    build: ./.docker/nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+    networks:
+      - app-network
+    depends_on:
+      - app
+
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - 6380:6379
+    networks:
+      - app-network
+
+
+networks:
+  app-network:
+    driver: bridge
