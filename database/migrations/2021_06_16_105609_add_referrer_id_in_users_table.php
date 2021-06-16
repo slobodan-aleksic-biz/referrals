@@ -14,7 +14,7 @@ class AddReferrerIdInUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->uuid('referrer_id')->nullable();
+            $table->uuid('referrer_id')->nullable()->after('remember_token');
 
             $table->foreign('referrer_id')
                 ->references('id')
