@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'referrer_id');
     }
+
+    public function scopeNumOfMyReferrals($query, $user)
+    {
+        return $query->where('referrer_id', $user->id);
+    }
 }
