@@ -5,6 +5,7 @@ Use docker to run the website
 Run the commands:
 - docker-compose up
 - docker-compose exec app bash
+- composer install
 - php artisan migrate
 
 Visit the website
