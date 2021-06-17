@@ -42,9 +42,9 @@
             <div class="card">
                 <div class="card-header">
                     @if($page == App\Http\Enums\PageName::HOME)
-                    {{ __('Number of referrals per user sorted by top referrals') }}
+                    {{ __('Number of referrals per user sorted by top direct referrals') }}
                     @else
-                    {{ __("Number of ':userName' referrals sorted by top referrals", ['userName' => $user->name]) }}
+                    {{ __("Number of ':userName' referrals sorted by top direct referrals", ['userName' => $user->name]) }}
                     @endif
                 </div>
 
@@ -77,11 +77,42 @@
                     
                     @endforeach
                 </div>
-
                 <div class="card-footer">
                     {!! $allUsers->links() !!}
                 </div>
             </div>
+
+            @if($page == App\Http\Enums\PageName::SHOW)
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    {{ __("Number of ':userName' referrals sorted by top ':userName' direct/indirect referrals", ['userName' => $user->name]) }}
+                </div>
+                
+                <div class="card-body">
+                    @if(count($allChildUsers) == 0) 
+                        <h4 class="text-center">
+                            {{  __('No referrals') }}
+                        </h4>
+                    @endif
+
+                    @foreach ($allChildUsers as $userItem)
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="alert alert-info" role="alert">
+                                    <a href="{{ route('show', $userItem->id) }}">
+                                        {{ $userItem->name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="card-footer">
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>

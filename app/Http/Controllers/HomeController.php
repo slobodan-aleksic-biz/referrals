@@ -54,11 +54,13 @@ class HomeController extends Controller
         [
             $numOfMyReferrals,
             $allUsers,
+            $allChildUsers,
         ] = $this->defaultData($user, false);
 
         return view('home', [
             'numOfMyReferrals' => $numOfMyReferrals,
             'allUsers' => $allUsers,
+            'allChildUsers' => $allChildUsers,
             'user' => $user,
             'page' => PageName::SHOW,
         ]);
@@ -67,11 +69,30 @@ class HomeController extends Controller
     private function defaultData($user, $isIndex = true)
     {
         $numOfMyReferrals = User::numOfMyReferrals($user)->count();
+        $allChildUsers = [];
 
         if($isIndex) {
             $allUsers = User::where('id', '!=', $user->id);
         } else {
             $allUsers = User::where('referrer_id', '=', $user->id);
+
+            $allChildUsers = DB::select(__("
+                with recursive cref (id, name, referrer_id) as (
+                    select     id,
+                            name,
+                            referrer_id
+                    from       users
+                    where      referrer_id = ':referrerId'
+                    union all
+                    select     p.id,
+                            p.name,
+                            p.referrer_id
+                    from       users p
+                    inner join cref
+                            on p.referrer_id = cref.id
+                )
+                select * from cref
+            ", ['referrerId' => $user->id]));
         }
 
         $allUsers = $allUsers->select([
@@ -84,6 +105,7 @@ class HomeController extends Controller
         return [
             $numOfMyReferrals,
             $allUsers,
+            $allChildUsers,
         ];
     }
 }
