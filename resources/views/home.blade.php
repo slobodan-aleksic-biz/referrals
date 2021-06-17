@@ -41,7 +41,6 @@
             <br>
             <div class="card">
                 <div class="card-header">
-                    
                     @if($page == App\Http\Enums\PageName::HOME)
                     {{ __('Number of referrals per user sorted by top referrals') }}
                     @else
