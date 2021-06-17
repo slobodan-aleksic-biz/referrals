@@ -40,7 +40,14 @@
    
             <br>
             <div class="card">
-                <div class="card-header">{{ __('Number of referrals per user sorted by top referrals') }}</div>
+                <div class="card-header">
+                    
+                    @if($page == App\Http\Enums\PageName::HOME)
+                    {{ __('Number of referrals per user sorted by top referrals') }}
+                    @else
+                    {{ __("Number of ':userName' referrals sorted by top referrals", ['userName' => $user->name]) }}
+                    @endif
+                </div>
 
                 <div class="card-body">
                     @if($allUsers->count() == 0) 
