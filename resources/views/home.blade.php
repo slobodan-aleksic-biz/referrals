@@ -25,7 +25,7 @@
                 <div class="col-9">
                     <div class="card" style="height:150px">
                         <div class="card-header">{{ __('Referral link') }}</div>
-                        <div class="card-body font-sm" >
+                        <div class="card-body" >
                             <h6>
                                 {{ 
                                     route('register', [
@@ -83,35 +83,49 @@
             </div>
 
             @if($page == App\Http\Enums\PageName::SHOW)
-            <br>
-            <div class="card">
-                <div class="card-header">
-                    {{ __("Number of ':userName' referrals sorted by top ':userName' direct/indirect referrals", ['userName' => $user->name]) }}
-                </div>
-                
-                <div class="card-body">
-                    @if(count($allChildUsers) == 0) 
-                        <h4 class="text-center">
-                            {{  __('No referrals') }}
-                        </h4>
-                    @endif
-
-                    @foreach ($allChildUsers as $userItem)
-                        <div class="row">
-                            <div class="col-7">
-                                <div class="alert alert-info" role="alert">
-                                    <a href="{{ route('show', $userItem->id) }}">
-                                        {{ $userItem->name }}
-                                    </a>
+                <br>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="alert alert-info" role="alert" style="height:150px">
+                            <h6>
+                                {{ __("Num of ':userName' direct/indirect referrals", [
+                                        'userName' => $user->name
+                                    ]) 
+                                }}
+                                <hr>
+                                <div class="text-center">
+                                    {{count($allChildUsers)}}
                                 </div>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="card">
+                            <div class="card-header">
+                                {{ __("Number of ':userName' referrals sorted by top ':userName' direct/indirect referrals", ['userName' => $user->name]) }}
+                            </div>
+                            
+                            <div class="card-body">
+                                @if(count($allChildUsers) == 0) 
+                                    <h4 class="text-center">
+                                        {{  __('No referrals') }}
+                                    </h4>
+                                @endif
+                                @foreach ($allChildUsers as $userItem)
+                                    <div class="alert alert-info" role="alert">
+                                        <a href="{{ route('show', $userItem->id) }}">
+                                            {{ $userItem->name }}
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="card-footer">
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+             
                 </div>
 
-                <div class="card-footer">
-                </div>
-            </div>
             @endif
         </div>
     </div>
