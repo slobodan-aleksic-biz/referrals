@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="row">
-                <div class="col-3">
+                <div class="col-md-3">
                     <div class="alert alert-info" role="alert" style="height:150px">
                         <h5>
                             @if($page == App\Http\Enums\PageName::HOME)
@@ -22,7 +22,7 @@
                         </h5>
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-md-9">
                     <div class="card" style="height:150px">
                         <div class="card-header">{{ __('Referral link') }}</div>
                         <div class="card-body" >
@@ -85,7 +85,7 @@
             @if($page == App\Http\Enums\PageName::SHOW)
                 <br>
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-md-3">
                         <div class="alert alert-info" role="alert" style="height:150px">
                             <h6>
                                 {{ __("Num of ':userName' direct/indirect referrals", [
@@ -99,7 +99,7 @@
                             </h6>
                         </div>
                     </div>
-                    <div class="col-9">
+                    <div class="col-md-9">
                         <div class="card">
                             <div class="card-header">
                                 {{ __("Number of ':userName' referrals sorted by top ':userName' direct/indirect referrals", ['userName' => $user->name]) }}
